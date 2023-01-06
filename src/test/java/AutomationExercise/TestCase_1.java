@@ -21,9 +21,28 @@ public class TestCase_1{
         driver.findElement(By.cssSelector("a[href='/login']")).click();
         Assert.assertEquals(driver.findElement(By.cssSelector("div[class='signup-form'] h2")).getText(),
                 "New User Signup!");
+
         String name = "Nuri";
-        driver.findElement(By.name("name")).sendKeys(name);
-        driver.findElement(By.cssSelector("input[data-qa='signup-email']")).sendKeys("nuriti@gmail.com");
+        String email = "nuriiii@gmail.com";
+        createAccount(driver,name,email);
+        accountCreationCheck(driver, name);
+        deleteAccount(driver);
+        driver.close();
+
+    }
+
+    public static void accountCreationCheck(WebDriver driver, String name) {
+        String accountCreated = driver.findElement(By.cssSelector("h2[class='title text-center'] b")).getText();
+        Assert.assertEquals(accountCreated,"ACCOUNT CREATED!");
+        driver.findElement(By.cssSelector(".btn.btn-primary")).click();
+        String str = driver.findElement(By.xpath("//li[10]//a[1]")).getText();
+        Assert.assertEquals(str,"Logged in as " + name);
+    }
+
+    public static void createAccount (WebDriver driver, String userName, String email) {
+
+        driver.findElement(By.name("name")).sendKeys(userName);
+        driver.findElement(By.cssSelector("input[data-qa='signup-email']")).sendKeys(email);
         driver.findElement(By.cssSelector("button[data-qa='signup-button']")).click();
 
         driver.findElement(By.id("id_gender1")).click();
@@ -45,18 +64,9 @@ public class TestCase_1{
         driver.findElement(By.id("zipcode")).sendKeys("35555");
         driver.findElement(By.id("mobile_number")).sendKeys("5552221100");
         driver.findElement(By.cssSelector("button[data-qa='create-account']")).click();
-
-        String accountCreated = driver.findElement(By.cssSelector("h2[class='title text-center'] b")).getText();
-        Assert.assertEquals(accountCreated,"ACCOUNT CREATED!");
-        driver.findElement(By.cssSelector(".btn.btn-primary")).click();
-        String str = driver.findElement(By.xpath("//li[10]//a[1]")).getText();
-        Assert.assertEquals(str,"Logged in as " + name);
-        deleteAccount(driver);
-        driver.close();
-
     }
 
-    private static void deleteAccount(WebDriver driver) {
+    public static void deleteAccount(WebDriver driver) {
         driver.findElement(By.cssSelector("a[href='/delete_account']")).click();
         driver.findElement(By.xpath("//a[normalize-space()='Continue']")).click();
     }
