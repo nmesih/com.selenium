@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+
+    <parameter name="URL" value="mesih"/>
+    <test verbose="2" preserve-order="true" name="C:/Users/ASUS/workspace/InarAcademy/com.selenium/src/test/java/Udemy_TestNG">
+
+    <groups>
+        <run>
+            <include name="Smoke"/>
+        </run>
+    </groups>
+
+        <classes>
+        <class name="Udemy.Demo_10_javaStreams">
+
+            <methods>
+                <exclude name="streamCollect"/>
+            </methods>
+
+        </class>
+        </classes>
+
+    </test>
+</suite>
